@@ -31,4 +31,12 @@
   .column-half {
     width: 50%;
   }
+
+  img {
+    height: 357px;
+  }
+
+  .margin-lr12 {
+    margin: 0 12px;
+  }
 }

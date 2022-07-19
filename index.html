@@ -22,13 +22,20 @@
   <header class="background-purple-fullwidth">
     <div class="container">
       <div class="row">
-        <h2 class="column-full font">Code Journal</h2>
+        <div class="column-full font-white ">
+          <ul class="padding-l0">
+            <li class="font nav-inline">Code Journal</li>
+            <li class="nav-inline margin-l20"><a class="nav-nounderline-white entry-view" data-view="entry-form">Entries</a></li>
+
+          </ul>
+        </div>
       </div>
+
     </div>
   </header>
 
   <main class="container">
-    <div data-view="entry-form">
+    <div class="get-form" data-view="entry-form">
       <form id="form-journal">
 
         <div class="row">
@@ -44,11 +51,11 @@
           <div class="column-full column-half ">
             <label for="title" class="font-weight500 padding-l5">Title</label>
             <div class="margin-b15 margin-t5">
-              <input class="input-100width border-size border text-pl10" type="text" name="title" id="title" >
+              <input class="input-100width border-size border text-pl10" type="text" name="title" id="title" required>
             </div>
             <label for="photo-url" class="font-weight500 padding-l5">Photo URL</label>
             <div class="margin-t5">
-              <input class="input-100width border-size border text-pl10" type="text" name="photo-url" id="photo-url" >
+              <input class="input-100width border-size border text-pl10" type="text" name="photo-url" id="photo-url" required>
             </div>
           </div>
         </div>
@@ -57,7 +64,7 @@
           <div class="column-full">
             <label for="notes" class="font-weight500 padding-l5">Notes</label>
             <div class="margin-t5">
-              <textarea class="column-full border text-pl10 textarea-pt10 no-resize note-height" name="notes" id="notes" ></textarea>
+              <textarea class="column-full border text-pl10 textarea-pt10 no-resize note-height" name="notes" id="notes" required></textarea>
             </div>
           </div>
         </div>
@@ -70,35 +77,18 @@
         </div>
 
       </form>
-    </div>
+    </div> <!-- end of entry form -->
 
-    <div data-view="entries">
-      <ul class="list-none">
-
-        <li class="row margin-b40">
-          <div class="column-full column-half">
-            <img src="https://www.planetware.com/wpimages/2019/06/south-korea-top-tourist-attractions-bukchon-hanok-village.jpg">
-          </div>
-          <div class="column-full column-half">
-            <h3>Korea</h3>
-            <p>Korea place. A place I don't know where the picture is from.... but it sure looks pretty Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic quod cupiditate maiores. Velit maiores earum, nisi qui rem deleniti ducimus quos illum itaque perspiciatis. Itaque aliquid unde pariatur illo beatae!</p>
-          </div>
-        </li>
-
-        <li class="row">
-          <div class="column-full column-half">
-            <img src="https://www.planetware.com/wpimages/2019/06/south-korea-top-tourist-attractions-jingwansa-temple-bukhansan-national-park.jpg">
-          </div>
-          <div class="column-full column-half">
-            <h3>Korea</h3>
-            <p>MOUTAIN TEMPLE Korea place. A place I don't know where the picture is from.... but it sure looks pretty Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic quod cupiditate maiores. Velit maiores earum, nisi qui rem deleniti ducimus quos illum itaque perspiciatis. Itaque aliquid unde pariatur illo beatae!</p>
-          </div>
-        </li>
-
-      </ul>
-
-
-
+    <!-- start of entries view -->
+    <div class="get-entries hidden" data-view="entries">
+      <div class="row justify-between align-center margin-lr12">
+        <h1>Entries</h1>
+        <button class="font-white btn">NEW</button>
+      </div>
+      <div>
+        <ul class="list-none">
+        </ul>
+      </div>
     </div>
 
 
