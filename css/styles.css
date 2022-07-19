@@ -42,6 +42,10 @@ img {
   margin-bottom: 15px;
 }
 
+.margin-b40 {
+  margin-bottom: 40px;
+}
+
 .text-end {
   text-align: end;
 }
