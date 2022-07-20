@@ -26,7 +26,7 @@
           <section class="padding-l0">
             <h3 class="font nav-inline">Code Journal</h3>
             <nav class="nav-inline margin-l20">
-              <a class="nav-nounderline-white entry-view clicker" href="#" data-view="entry-form">
+              <a class="nav-nounderline-white entry-view clicker" href="#" data-view="entries">
                 Entries
               </a>
             </nav>
@@ -75,7 +75,7 @@
 
         <div class="row">
           <div class="column-full text-end">
-            <button class="save btn font-white clicker" type="submit">SAVE</button>
+            <button class="save btn font-white" data-view="entries" type="submit">SAVE</button>
             <!-- <input class="btn font-white" type="submit" value="SAVE"> -->
           </div>
         </div>
@@ -88,7 +88,7 @@
     <div class="get-entries view hidden" data-view="entries">
       <div class="row justify-between align-center margin-lr12">
         <h1>Entries</h1>
-        <button class="font-white btn new-entry clicker">NEW</button>
+        <button class="font-white btn new-entry clicker" data-view="entry-form">NEW</button>
       </div>
 
       <div>

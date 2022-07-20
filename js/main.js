@@ -25,16 +25,9 @@ function submitEntry(event) {
   ulEl.prepend(renderList(entryObj));
 
   $getForm.className = 'hidden';
-  // delete below
   $getEntries.className = 'get-entries';
   $noDiv.className = 'no-entries hidden';
   data.view = 'entries';
-
-  // checking toggleView
-
-  // console.log(event);
-  // console.log(event.target);
-
 }
 
 function renderList(entry) {
@@ -74,7 +67,6 @@ function loadView(event) {
   } else if (data.view === 'entries') {
     $getForm.className = 'hidden';
     $getEntries.className = 'get-entries';
-    // hideFormShowEntries();
   }
 
   for (var i = data.entries.length - 1; i >= 0; i--) {
@@ -82,81 +74,25 @@ function loadView(event) {
   }
 }
 
-/* var viewEntries = document.querySelector('.entry-view'); */
+var $view = document.querySelectorAll('.view');
+
 var $getEntries = document.querySelector('.get-entries');
 var $getForm = document.querySelector('.get-form');
-/* viewEntries.addEventListener('click', toggleView); */
 var $body = document.querySelector('body');
-var $clicker = document.querySelectorAll('.clicker');
+
 $body.addEventListener('click', toggleView);
+
 function toggleView(event) {
+
   if (event.target.matches('.clicker')) {
-    var $dataValue = data.view;
-    for (var i = 0; i < $clicker.length; i++) {
-      if ($dataValue === $clicker) {
-        // console.log($clicker);
+    var $dataValue = event.target.dataset.view;
+    for (var i = 0; i < $view.length; i++) {
+      if ($view[i].dataset.view === $dataValue) {
+        $view[i].classList.remove('hidden');
+        data.view = $view[i].dataset.view;
+      } else {
+        $view[i].classList.add('hidden');
       }
     }
-    // console.log('event', event);
-    // console.log('event.target', event.target);
-    /*   var $currentEvent = event.target;  */
-    if (event.target.matches('.new-entry')) {
-      $getForm.className = 'get-entries';
-      $getEntries.className = 'hidden';
-      data.view = 'entry-form';
-    } else {
-      $getForm.className = 'hidden';
-      $getEntries.className = 'get-entries';
-      data.view = 'entries';
-    }
-    // console.log('clicker.length: ', $clicker.length);
   }
-
 }
-
-/* var $newEntry = document.querySelector('.new-entry');
-$newEntry.addEventListener('click', toggleView); */
-
-/* function toggleView(event) {
-  $getForm.className = 'get-entries';
-  $getEntries.className = 'hidden';
-  data.view = 'entry-form';
-} */
-
-// var $container = document.querySelector('.container');
-/* var $formView = data.view;
-if ($formView === 'entry-form'); */
-
-/* $container.body.addEventListener('click', toggleView);
-/* var $view = queryselectorall('.view'); */
-/* function toggleView(event) {
-  console.log('event: ', event);
-  console.log('event.target: ', event.target);
-} */
-
-// ************** BELOW IS TEST FOR TGGLEVIEW
-/* var $view = document.querySelectorAll('.view');
-
-function toggleView(event) {
-  for (var i = 0; i < $view.length; i++) {
-    if ($view[i].dataset.view === event.dataset.view) {
-      data.view = $view[i];
-    } else {
-      data.view = $;
-    }
-  }
-} */
-
-/* var $save = document.querySelector('.save');
-$save.addEventListener('click', saveEntry);
-function saveEntry(event) {
-  if (data.entries.length === 0) {
-    var $noDiv = document.querySelector('.no-entries');
-    var $noEntriesMsg = document.createElement('p');
-    $noEntriesMsg.textContent = 'No entries have been recorded.';
-    $noDiv.appendChild($noEntriesMsg);
-  }
-  console.log('YOU ARE INSIDE THE SAVE BUTTON FUNCTION');
-  $getForm.className = 'hidden';
-  $getEntries.className = 'get-entries';
-} */
