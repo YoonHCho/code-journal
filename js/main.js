@@ -1,7 +1,6 @@
 var getPhotoURL = document.querySelector('#photo-url');
 getPhotoURL.addEventListener('input', displayImage);
 var image = document.querySelector('img');
-
 function displayImage(event) {
   image.setAttribute('src', event.target.value);
 }
@@ -13,7 +12,6 @@ function submitEntry(event) {
   event.preventDefault();
   var entryObj = {};
 
-  // add  .value at the end of title photoUrl notes
   entryObj.title = formEntry.elements.title.value;
   entryObj.photoUrl = formEntry.elements['photo-url'].value;
   entryObj.notes = formEntry.elements.notes.value;
@@ -22,10 +20,14 @@ function submitEntry(event) {
   data.entries.unshift(entryObj);
   image.setAttribute('src', 'images/placeholder-image-square.jpg');
   formEntry.reset();
-
+  ulEl.prepend(renderList(entryObj));
+  $getForm.className = 'hidden';
+  $getEntries.className = 'get-entries';
+  var $noDiv = document.querySelector('.no-entries');
+  $noDiv.className = 'no-entries hidden';
+  data.view = 'entries';
 }
 
-// need to add entry as parameter
 function renderList(entry) {
   var liEl = document.createElement('li');
   liEl.setAttribute('class', 'row margin-b40 align-center');
@@ -55,24 +57,53 @@ function renderList(entry) {
 
 var ulEl = document.querySelector('.list-none');
 window.addEventListener('DOMContentLoaded', loadView);
-function loadView() {
+
+function loadView(event) {
+  if (data.view === 'entry-form') {
+    $getForm.className = 'get-entries';
+    $getEntries.className = 'hidden';
+  } else if (data.view === 'entries') {
+    $getForm.className = 'hidden';
+    $getEntries.className = 'get-entries';
+    hideFormShowEntries();
+  }
+
   for (var i = data.entries.length - 1; i >= 0; i--) {
     ulEl.prepend(renderList(data.entries[i]));
   }
 }
 
 var viewEntries = document.querySelector('.entry-view');
+var $getEntries = document.querySelector('.get-entries');
+var $getForm = document.querySelector('.get-form');
+viewEntries.addEventListener('click', hideFormShowEntries);
 
-viewEntries.addEventListener('click', hideNewShowEntries);
-
-function hideNewShowEntries(event) {
-  /*   var formDataValue = event.target.getAttribute('data-view');
-  console.log(formDataValue); */
-
-  var $getForm = document.querySelector('.get-form');
+function hideFormShowEntries(event) {
   $getForm.className = 'hidden';
-  /*   console.log('$getForm now hides', $getForm); */
-
-  var $getEntries = document.querySelector('.get-entries');
   $getEntries.className = 'get-entries';
+  data.view = 'entries';
 }
+
+var $newEntry = document.querySelector('.new-entry');
+$newEntry.addEventListener('click', showFormHideEntries);
+
+function showFormHideEntries(event) {
+  $getForm.className = 'get-entries';
+  $getEntries.className = 'hidden';
+  data.view = 'entry-form';
+
+}
+
+/* var $save = document.querySelector('.save');
+$save.addEventListener('click', saveEntry);
+function saveEntry(event) {
+  if (data.entries.length === 0) {
+    var $noDiv = document.querySelector('.no-entries');
+    var $noEntriesMsg = document.createElement('p');
+    $noEntriesMsg.textContent = 'No entries have been recorded.';
+    $noDiv.appendChild($noEntriesMsg);
+  }
+  console.log('YOU ARE INSIDE THE SAVE BUTTON FUNCTION');
+  $getForm.className = 'hidden';
+  $getEntries.className = 'get-entries';
+} */

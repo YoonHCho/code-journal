@@ -136,3 +136,12 @@ textarea:focus {
 .justify-between {
   justify-content: space-between;
 }
+
+.text-align {
+  text-align: center;
+}
+
+button:hover,
+a:hover {
+  cursor: pointer;
+}
