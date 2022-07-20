@@ -78,9 +78,18 @@ var $view = document.querySelectorAll('.view');
 
 var $getEntries = document.querySelector('.get-entries');
 var $getForm = document.querySelector('.get-form');
-var $body = document.querySelector('body');
+// start making changes below  var $body = document.querySelector('body'); was here
+var $anchors = document.getElementsByTagName('a');
+for (var i = 0; i < $anchors.length; i++) {
+  $anchors[i].addEventListener('click', toggleView);
+}
 
-$body.addEventListener('click', toggleView);
+/* $aEntries.addEventListener('click', toggleView); */
+
+// below addEventListener was for when from body
+// $body.addEventListener('click', toggleView);
+
+// function viewSwapping();
 
 function toggleView(event) {
 
