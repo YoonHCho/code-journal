@@ -1,12 +1,14 @@
 var getPhotoURL = document.querySelector('#photo-url');
 getPhotoURL.addEventListener('input', displayImage);
 var image = document.querySelector('img');
+
 function displayImage(event) {
   image.setAttribute('src', event.target.value);
 }
 
 var formEntry = document.querySelector('#form-journal');
 formEntry.addEventListener('submit', submitEntry);
+var $noDiv = document.querySelector('.no-entries');
 
 function submitEntry(event) {
   event.preventDefault();
@@ -22,10 +24,13 @@ function submitEntry(event) {
   formEntry.reset();
   ulEl.prepend(renderList(entryObj));
   $getForm.className = 'hidden';
+  // delete below
   $getEntries.className = 'get-entries';
-  var $noDiv = document.querySelector('.no-entries');
   $noDiv.className = 'no-entries hidden';
   data.view = 'entries';
+
+  // checking toggleView
+/*   toggleView(event.target); */
 }
 
 function renderList(entry) {
@@ -91,8 +96,30 @@ function showFormHideEntries(event) {
   $getForm.className = 'get-entries';
   $getEntries.className = 'hidden';
   data.view = 'entry-form';
-
 }
+
+// ************** BELOW IS TEST FOR TGGLEVIEW
+/* var $view = document.querySelectorAll('.view');
+
+function toggleView(event) {
+  for (var i = 0; i < $view.length; i++) {
+    if ($view[i].dataset.view === event.dataset.view) {
+      data.view = $view[i];
+    } else {
+      data.view = $;
+    }
+  }
+} */
+
+/* var $formView = data.view;
+if ($formView === 'entry-form');
+
+$container.addEventListener('click', toggleView);
+
+function toggleView(event) {
+  console.log('event: ', event);
+  console.log('event.target: ', event.target);
+} */
 
 /* var $save = document.querySelector('.save');
 $save.addEventListener('click', saveEntry);

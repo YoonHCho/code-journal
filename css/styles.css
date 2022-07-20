@@ -124,10 +124,6 @@ textarea:focus {
   padding-left: 0;
 }
 
-.hidden {
-  display: none;
-}
-
 .nav-nounderline-white {
   text-decoration: none;
   color: white;

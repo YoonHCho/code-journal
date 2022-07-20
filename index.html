@@ -23,11 +23,12 @@
     <div class="container">
       <div class="row">
         <div class="column-full font-white ">
-          <ul class="padding-l0">
-            <li class="font nav-inline">Code Journal</li>
-            <li class="nav-inline margin-l20"><a class="nav-nounderline-white entry-view" data-view="entry-form">Entries</a></li>
-
-          </ul>
+          <section class="padding-l0">
+            <h3 class="font nav-inline">Code Journal</h3>
+            <nav class="nav-inline margin-l20">
+              <a class="nav-nounderline-white entry-view" data-view="entry-form">Entries</a>
+            </nav>
+          </section>
         </div>
       </div>
 
@@ -35,7 +36,8 @@
   </header>
 
   <main class="container">
-    <div class="get-form" data-view="entry-form">
+    <!-- DELETED get-form FROM BELOW DIV -->
+    <div class="get-form view" data-view="entry-form">
       <form id="form-journal">
 
         <div class="row">
@@ -80,7 +82,8 @@
     </div> <!-- end of entry form -->
 
     <!-- start of entries view -->
-    <div class="get-entries hidden" data-view="entries">
+    <!-- DELETED get-entries from below div class -->
+    <div class="get-entries view hidden" data-view="entries">
       <div class="row justify-between align-center margin-lr12">
         <h1>Entries</h1>
         <button class="font-white btn new-entry">NEW</button>
