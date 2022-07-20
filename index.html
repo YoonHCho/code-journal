@@ -22,13 +22,24 @@
   <header class="background-purple-fullwidth">
     <div class="container">
       <div class="row">
-        <h2 class="column-full font">Code Journal</h2>
+        <div class="column-full font-white ">
+          <section class="padding-l0">
+            <h3 class="font nav-inline">Code Journal</h3>
+            <nav class="nav-inline margin-l20">
+              <a class="a-entries nav-nounderline-white entry-view clicker" href="#" data-view="entries">
+                Entries
+              </a>
+            </nav>
+          </section>
+        </div>
       </div>
+
     </div>
   </header>
 
   <main class="container">
-    <div data-view="entry-form">
+    <!-- DELETED get-form FROM BELOW DIV -->
+    <div class="get-form view" data-view="entry-form">
       <form id="form-journal">
 
         <div class="row">
@@ -44,11 +55,11 @@
           <div class="column-full column-half ">
             <label for="title" class="font-weight500 padding-l5">Title</label>
             <div class="margin-b15 margin-t5">
-              <input class="input-100width border-size border text-pl10" type="text" name="title" id="title" >
+              <input class="input-100width border-size border text-pl10" type="text" name="title" id="title" required>
             </div>
             <label for="photo-url" class="font-weight500 padding-l5">Photo URL</label>
             <div class="margin-t5">
-              <input class="input-100width border-size border text-pl10" type="text" name="photo-url" id="photo-url" >
+              <input class="input-100width border-size border text-pl10" type="text" name="photo-url" id="photo-url" required>
             </div>
           </div>
         </div>
@@ -57,20 +68,41 @@
           <div class="column-full">
             <label for="notes" class="font-weight500 padding-l5">Notes</label>
             <div class="margin-t5">
-              <textarea class="column-full border text-pl10 textarea-pt10 no-resize note-height" name="notes" id="notes" ></textarea>
+              <textarea class="column-full border text-pl10 textarea-pt10 no-resize note-height" name="notes" id="notes" required></textarea>
             </div>
           </div>
         </div>
 
-        <div class="row justify-end padding-r12">
-          <div>
-            <button class="btn font-white" type="submit">SAVE</button>
+        <div class="row">
+          <div class="column-full text-end">
+            <button class="save btn font-white" data-view="entries" type="submit">SAVE</button>
             <!-- <input class="btn font-white" type="submit" value="SAVE"> -->
           </div>
         </div>
 
       </form>
+    </div> <!-- end of entry form -->
+
+    <!-- start of entries view -->
+    <!-- DELETED get-entries from below div class -->
+    <div class="get-entries view hidden" data-view="entries">
+      <div class="row justify-between align-center margin-lr12">
+        <h1>Entries</h1>
+        <a class="font-white btn new-entry clicker nav-button" data-view="entry-form">
+          NEW
+        </a>
+      </div>
+
+      <div>
+        <ul class="list-none">
+        </ul>
+      </div>
+      <div class="no-entries">
+        <p class="text-align">No entries have been recorded.</p>
+      </div>
     </div>
+
+
   </main>
 
   <script src="js/data.js"></script>
