@@ -22,20 +22,16 @@ function submitEntry(event) {
     entryObj.entryId = $entryIdNum;
 
     // TO REPLACE THE EXISTING WITH THE EDITED ONE
-    /*     console.log('$entryIdNum: ', $entryIdNum);
-    console.log('entryObj: ', entryObj); */
-
-    // dataset.liId ID num set on li
     var $liEl = document.querySelectorAll('li');
-    // var $liId = $liEl[2].getAttribute('data-liId');
     for (var i = 0; i < $liEl.length; i++) {
       if (Number($liEl[i].getAttribute('data-liId')) === entryObj.entryId) {
         $liEl[i].replaceWith(renderList(entryObj));
       }
     }
-    for (var k = 0; k < data.entries; k++) {
-      if (Number(data.entries[i].entryId) === entryObj.entryId) {
-        data.entries.splice(i, 1, entryObj);
+
+    for (var k = 0; k < data.entries.length; k++) {
+      if (Number(data.entries[k].entryId) === entryObj.entryId) {
+        data.entries.splice([k], 1, entryObj);
       }
     }
 
@@ -109,6 +105,9 @@ function loadView(event) {
     $getForm.className = 'hidden';
     $getEntries.className = 'get-entries';
   }
+  if (data.entries.length !== 0) {
+    $noDiv.className = 'no-entries hidden';
+  }
 
   for (var i = data.entries.length - 1; i >= 0; i--) {
     ulEl.prepend(renderList(data.entries[i]));
@@ -121,6 +120,7 @@ function newEntry() {
   $getForm.className = 'get-entries';
   $getEntries.className = 'hidden';
   document.querySelector('.edit-heading').textContent = 'New Entry';
+  image.setAttribute('src', 'images/placeholder-image-square.jpg');
   data.editing = null;
 }
 var $view = document.querySelectorAll('.view');
@@ -155,6 +155,7 @@ function entryList(event) {
     $getForm.className = 'get-entries';
     $getEntries.className = 'hidden';
     document.querySelector('.edit-heading').textContent = 'Edit Entry';
+    // THIS IS WHERE I WILL ADD THE INFO
   }
 
   $entryIdNum = Number(event.target.getAttribute('data-entry-id'));
