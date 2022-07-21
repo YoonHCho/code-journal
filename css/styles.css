@@ -138,7 +138,8 @@ textarea:focus {
 }
 
 button:hover,
-a:hover {
+a:hover,
+i:hover {
   cursor: pointer;
 }
 

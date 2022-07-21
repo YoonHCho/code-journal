@@ -2,6 +2,7 @@ var getPhotoURL = document.querySelector('#photo-url');
 getPhotoURL.addEventListener('input', displayImage);
 var image = document.querySelector('img');
 var $entryIdNum;
+// var indexToReplace;
 function displayImage(event) {
   image.setAttribute('src', event.target.value);
 }
@@ -16,13 +17,19 @@ function submitEntry(event) {
 
   // issue 3 = Update the entry form's submit handler function to conditionally add a new entry object or update the existing one.
   if (data.editing !== null) {
+    // console.log('insdie the submit for when !== null');
     // for (var i = 0; i < data.entries.length; i++) {
     // -> if ($entryIdNum === data.entries[i].entryId) {
     entryObj.title = formEntry.elements.title.value;
     entryObj.photoUrl = formEntry.elements['photo-url'].value;
     entryObj.notes = formEntry.elements.notes.value;
     entryObj.entryId = $entryIdNum;
-    data.entries.unshift(entryObj);
+
+    // TO REPLACE THE EXISTING WITH THE EDITED ONE
+    // console.log('$entryIdNum: ', $entryIdNum);
+    // console.log('entryObj: ', entryObj);
+    // data.entries[indexToReplace].replaceWith(entryObj);
+
     data.editing = null;
     image.setAttribute('src', 'images/placeholder-image-square.jpg');
     // }
@@ -159,18 +166,19 @@ function entryList(event) {
     if (data.entries[i].entryId === $entryIdNum) {
       // console.log('inside the if true');
       data.editing = data.entries[i];
-      // console.log(data.editing);
-
+      // console.log('data.editing:', data.editing);
+      // indexToReplace = i;
+      // console.log('INDEX TO REPLACE', indexToReplace);
       formEntry.elements.title.value = data.editing.title;
       formEntry.elements['photo-url'].value = data.editing.photoUrl;
       image.setAttribute('src', data.editing.photoUrl);
       formEntry.elements.notes.value = data.editing.notes;
 
       // if the save button is clicked
-      formEntry.addEventListener('submit', submitEntry);
-      data.editing = null;
+
     }
   }
+  formEntry.addEventListener('submit', submitEntry);
 }
 
 // console.log(data.editing);
