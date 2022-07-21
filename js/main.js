@@ -2,7 +2,6 @@ var getPhotoURL = document.querySelector('#photo-url');
 getPhotoURL.addEventListener('input', displayImage);
 var image = document.querySelector('img');
 var $entryIdNum;
-// var indexToReplace;
 function displayImage(event) {
   image.setAttribute('src', event.target.value);
 }
@@ -17,22 +16,32 @@ function submitEntry(event) {
 
   // issue 3 = Update the entry form's submit handler function to conditionally add a new entry object or update the existing one.
   if (data.editing !== null) {
-    // console.log('insdie the submit for when !== null');
-    // for (var i = 0; i < data.entries.length; i++) {
-    // -> if ($entryIdNum === data.entries[i].entryId) {
     entryObj.title = formEntry.elements.title.value;
     entryObj.photoUrl = formEntry.elements['photo-url'].value;
     entryObj.notes = formEntry.elements.notes.value;
     entryObj.entryId = $entryIdNum;
 
     // TO REPLACE THE EXISTING WITH THE EDITED ONE
-    // console.log('$entryIdNum: ', $entryIdNum);
-    // console.log('entryObj: ', entryObj);
-    // data.entries[indexToReplace].replaceWith(entryObj);
+    /*     console.log('$entryIdNum: ', $entryIdNum);
+    console.log('entryObj: ', entryObj); */
+
+    // dataset.liId ID num set on li
+    var $liEl = document.querySelectorAll('li');
+    // var $liId = $liEl[2].getAttribute('data-liId');
+    for (var i = 0; i < $liEl.length; i++) {
+      if (Number($liEl[i].getAttribute('data-liId')) === entryObj.entryId) {
+        $liEl[i].replaceWith(renderList(entryObj));
+      }
+    }
+    for (var k = 0; k < data.entries; k++) {
+      if (Number(data.entries[i].entryId) === entryObj.entryId) {
+        data.entries.splice(i, 1, entryObj);
+      }
+    }
 
     data.editing = null;
     image.setAttribute('src', 'images/placeholder-image-square.jpg');
-    // }
+
   } else {
     entryObj.title = formEntry.elements.title.value;
     entryObj.photoUrl = formEntry.elements['photo-url'].value;
@@ -41,11 +50,10 @@ function submitEntry(event) {
     data.nextEntryId += 1;
     data.entries.unshift(entryObj);
     image.setAttribute('src', 'images/placeholder-image-square.jpg');
+    ulEl.prepend(renderList(entryObj));
   }
 
   formEntry.reset();
-  ulEl.prepend(renderList(entryObj));
-
   $getForm.className = 'hidden';
   $getEntries.className = 'get-entries';
   $noDiv.className = 'no-entries hidden';
@@ -55,6 +63,7 @@ function submitEntry(event) {
 function renderList(entry) {
   var liEl = document.createElement('li');
   liEl.setAttribute('class', 'row margin-b40 align-center');
+  liEl.setAttribute('data-liId', entry.entryId);
 
   var divImg = document.createElement('div');
   divImg.setAttribute('class', 'column-full column-half');
@@ -106,7 +115,6 @@ function loadView(event) {
   }
 }
 
-// own addEventListener for new button
 var $newEntry = document.querySelector('.new-entry');
 $newEntry.addEventListener('click', newEntry);
 function newEntry() {
@@ -138,9 +146,7 @@ function toggleView(event) {
     }
   }
 }
-
 // below is for ISSUE 3
-
 var $entryLists = document.querySelector('.entry-lists');
 $entryLists.addEventListener('click', entryList);
 
@@ -148,47 +154,19 @@ function entryList(event) {
   if (event.target.matches('.fa-pen-nib')) {
     $getForm.className = 'get-entries';
     $getEntries.className = 'hidden';
-
-    // changing <h1 class="edit-heading"> to edit entry from New Entry
     document.querySelector('.edit-heading').textContent = 'Edit Entry';
-
-    // console.log('event: ', event);
-    // console.log('event.target', event.target);
-    // console.log('getAttribute', event);
-    // console.log('formEntry', formEntry);
-    // console.log('formEntry', formEntry.elements);
   }
 
-  // define the below variable to be used in the beginning
   $entryIdNum = Number(event.target.getAttribute('data-entry-id'));
-  // console.log('ENTRY NUMBER', $entryIdNum);
   for (var i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === $entryIdNum) {
       // console.log('inside the if true');
       data.editing = data.entries[i];
-      // console.log('data.editing:', data.editing);
-      // indexToReplace = i;
-      // console.log('INDEX TO REPLACE', indexToReplace);
       formEntry.elements.title.value = data.editing.title;
       formEntry.elements['photo-url'].value = data.editing.photoUrl;
       image.setAttribute('src', data.editing.photoUrl);
       formEntry.elements.notes.value = data.editing.notes;
-
-      // if the save button is clicked
-
     }
   }
   formEntry.addEventListener('submit', submitEntry);
 }
-
-// console.log(data.editing);
-
-// to change the <h1>New Entry</h1>    formEntry.getElementsByTagName('h1);
-
-// formEntry.elements.title.textContent = data.editing.title;
-// data.editing.photoUrl
-// data.editing.notes
-
-// formEntry.elements.title.value
-// formEntry.elements['photo-url'].value
-// formEntry.elements.notes.value
