@@ -1,7 +1,6 @@
 var getPhotoURL = document.querySelector('#photo-url');
 getPhotoURL.addEventListener('input', displayImage);
 var image = document.querySelector('img');
-var $entryIdNum;
 function displayImage(event) {
   image.setAttribute('src', event.target.value);
 }
@@ -19,7 +18,7 @@ function submitEntry(event) {
     entryObj.title = formEntry.elements.title.value;
     entryObj.photoUrl = formEntry.elements['photo-url'].value;
     entryObj.notes = formEntry.elements.notes.value;
-    entryObj.entryId = $entryIdNum;
+    entryObj.entryId = data.editing.entryId;
 
     // TO REPLACE THE EXISTING WITH THE EDITED ONE
     var $liEl = document.querySelectorAll('li');
@@ -158,7 +157,7 @@ function entryList(event) {
     // THIS IS WHERE I WILL ADD THE INFO
   }
 
-  $entryIdNum = Number(event.target.getAttribute('data-entry-id'));
+  var $entryIdNum = Number(event.target.getAttribute('data-entry-id'));
   for (var i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === $entryIdNum) {
       // console.log('inside the if true');
