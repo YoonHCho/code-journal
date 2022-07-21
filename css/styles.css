@@ -147,3 +147,16 @@ a:hover {
   text-align: center;
   padding: 2px;
 }
+
+.line-height2 {
+  line-height: 0.8;
+}
+
+.justify-between-align-center {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.color-purple {
+  color: #4b2373;
+}

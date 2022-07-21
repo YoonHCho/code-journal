@@ -1,7 +1,7 @@
 var getPhotoURL = document.querySelector('#photo-url');
 getPhotoURL.addEventListener('input', displayImage);
 var image = document.querySelector('img');
-
+var $entryIdNum;
 function displayImage(event) {
   image.setAttribute('src', event.target.value);
 }
@@ -14,13 +14,28 @@ function submitEntry(event) {
   event.preventDefault();
   var entryObj = {};
 
-  entryObj.title = formEntry.elements.title.value;
-  entryObj.photoUrl = formEntry.elements['photo-url'].value;
-  entryObj.notes = formEntry.elements.notes.value;
-  entryObj.entryId = data.nextEntryId;
-  data.nextEntryId += 1;
-  data.entries.unshift(entryObj);
-  image.setAttribute('src', 'images/placeholder-image-square.jpg');
+  // issue 3 = Update the entry form's submit handler function to conditionally add a new entry object or update the existing one.
+  if (data.editing !== null) {
+    // for (var i = 0; i < data.entries.length; i++) {
+    // -> if ($entryIdNum === data.entries[i].entryId) {
+    entryObj.title = formEntry.elements.title.value;
+    entryObj.photoUrl = formEntry.elements['photo-url'].value;
+    entryObj.notes = formEntry.elements.notes.value;
+    entryObj.entryId = $entryIdNum;
+    data.entries.unshift(entryObj);
+    data.editing = null;
+    image.setAttribute('src', 'images/placeholder-image-square.jpg');
+    // }
+  } else {
+    entryObj.title = formEntry.elements.title.value;
+    entryObj.photoUrl = formEntry.elements['photo-url'].value;
+    entryObj.notes = formEntry.elements.notes.value;
+    entryObj.entryId = data.nextEntryId;
+    data.nextEntryId += 1;
+    data.entries.unshift(entryObj);
+    image.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
+
   formEntry.reset();
   ulEl.prepend(renderList(entryObj));
 
@@ -46,9 +61,19 @@ function renderList(entry) {
   divText.setAttribute('class', 'column-full column-half');
   liEl.appendChild(divText);
 
+  var divTitleIcon = document.createElement('div');
+  divTitleIcon.setAttribute('class', 'row justify-between-align-center');
+  divText.appendChild(divTitleIcon);
+
   var h3Title = document.createElement('h3');
   h3Title.textContent = entry.title;
-  divText.appendChild(h3Title);
+  divTitleIcon.appendChild(h3Title);
+
+  // this is where I added the ICON
+  var icon = document.createElement('i');
+  icon.setAttribute('class', 'fa-solid fa-pen-nib color-purple');
+  icon.setAttribute('data-entry-id', entry.entryId);
+  divTitleIcon.appendChild(icon);
 
   var paraNotes = document.createElement('p');
   paraNotes.textContent = entry.notes;
@@ -74,25 +99,26 @@ function loadView(event) {
   }
 }
 
+// own addEventListener for new button
+var $newEntry = document.querySelector('.new-entry');
+$newEntry.addEventListener('click', newEntry);
+function newEntry() {
+  $getForm.className = 'get-entries';
+  $getEntries.className = 'hidden';
+  document.querySelector('.edit-heading').textContent = 'New Entry';
+  data.editing = null;
+}
 var $view = document.querySelectorAll('.view');
-
 var $getEntries = document.querySelector('.get-entries');
 var $getForm = document.querySelector('.get-form');
-// start making changes below  var $body = document.querySelector('body'); was here
+
 var $anchors = document.getElementsByTagName('a');
 for (var i = 0; i < $anchors.length; i++) {
   $anchors[i].addEventListener('click', toggleView);
 }
 
-/* $aEntries.addEventListener('click', toggleView); */
-
-// below addEventListener was for when from body
-// $body.addEventListener('click', toggleView);
-
-// function viewSwapping();
-
 function toggleView(event) {
-
+  formEntry.reset();
   if (event.target.matches('.clicker')) {
     var $dataValue = event.target.dataset.view;
     for (var i = 0; i < $view.length; i++) {
@@ -105,3 +131,56 @@ function toggleView(event) {
     }
   }
 }
+
+// below is for ISSUE 3
+
+var $entryLists = document.querySelector('.entry-lists');
+$entryLists.addEventListener('click', entryList);
+
+function entryList(event) {
+  if (event.target.matches('.fa-pen-nib')) {
+    $getForm.className = 'get-entries';
+    $getEntries.className = 'hidden';
+
+    // changing <h1 class="edit-heading"> to edit entry from New Entry
+    document.querySelector('.edit-heading').textContent = 'Edit Entry';
+
+    // console.log('event: ', event);
+    // console.log('event.target', event.target);
+    // console.log('getAttribute', event);
+    // console.log('formEntry', formEntry);
+    // console.log('formEntry', formEntry.elements);
+  }
+
+  // define the below variable to be used in the beginning
+  $entryIdNum = Number(event.target.getAttribute('data-entry-id'));
+  // console.log('ENTRY NUMBER', $entryIdNum);
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === $entryIdNum) {
+      // console.log('inside the if true');
+      data.editing = data.entries[i];
+      // console.log(data.editing);
+
+      formEntry.elements.title.value = data.editing.title;
+      formEntry.elements['photo-url'].value = data.editing.photoUrl;
+      image.setAttribute('src', data.editing.photoUrl);
+      formEntry.elements.notes.value = data.editing.notes;
+
+      // if the save button is clicked
+      formEntry.addEventListener('submit', submitEntry);
+      data.editing = null;
+    }
+  }
+}
+
+// console.log(data.editing);
+
+// to change the <h1>New Entry</h1>    formEntry.getElementsByTagName('h1);
+
+// formEntry.elements.title.textContent = data.editing.title;
+// data.editing.photoUrl
+// data.editing.notes
+
+// formEntry.elements.title.value
+// formEntry.elements['photo-url'].value
+// formEntry.elements.notes.value
