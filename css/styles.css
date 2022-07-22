@@ -49,6 +49,10 @@ img {
   text-align: end;
 }
 
+.text-start {
+  text-align: start;
+}
+
 .font-weight500 {
   font-weight: 500;
 }
@@ -160,4 +164,77 @@ i:hover {
 
 .color-purple {
   color: #4b2373;
+}
+
+.delete-btn {
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  color: #dc2626;
+}
+
+.column-50 {
+  flex-basis: 50%;
+}
+
+.pop-up {
+  background-color: white;
+  width: 380px;
+  height: 145px;
+  padding: 19px;
+  text-align: center;
+  border-radius: 7px;
+}
+
+.canel-btn {
+  background-color: #b6b6b6;
+  border: none;
+  width: 90px;
+  height: 30px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.confirm-btn {
+  background-color: #dc2626;
+  border: none;
+  width: 90px;
+  height: 30px;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.fixed {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+}
+
+.origin {
+  transform: translate(-50%, -50%);
+}
+
+.margin-tb1040 {
+  margin-top: 10px;
+  margin-bottom: 40;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hide-block {
+  display: none;
+}
+
+.remove-pd-brd {
+  padding: 0;
+  border: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .fixed {
+    top: 50%;
+  }
 }

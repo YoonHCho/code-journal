@@ -24,11 +24,13 @@
   }
 
   .column-full,
-  .column-half {
+  .column-half,
+  .column-50 {
     padding: 0 0.75rem;
   }
 
-  .column-half {
+  .column-half,
+  .column-50 {
     width: 50%;
   }
 
