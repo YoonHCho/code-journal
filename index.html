@@ -80,11 +80,32 @@
         </div>
 
         <div class="row">
-          <div class="column-full text-end">
+          <div class="column-50 hidden delete-div">
+            <button class="delete-btn" type="button">Delete Entry</button>
+          </div>
+          <div class="column-full text-end save-div">
             <button class="save btn font-white" data-view="entries" type="submit">SAVE</button>
             <!-- <input class="btn font-white" type="submit" value="SAVE"> -->
           </div>
         </div>
+
+
+        <div class="hide-block">
+          <dialog class="remove-pd-brd">
+            <div class="pop-up fixed origin text-center">
+              <h4 class="margin-b40">Are you sure you want to delete this entry?</h4>
+              <div class="row">
+                <div class="column-50 text-start">
+                  <button class="canel-btn" type="button">CANCEL</button>
+                </div>
+                <div class="column-50 text-end">
+                  <button class="confirm-btn">CONFIRM</button>
+                </div>
+              </div>
+            </div>
+          </dialog>
+        </div>
+
 
       </form>
     </div> <!-- end of entry form -->
@@ -107,7 +128,6 @@
         <p class="text-align">No entries have been recorded.</p>
       </div>
     </div>
-
 
   </main>
 

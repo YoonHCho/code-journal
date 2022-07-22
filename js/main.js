@@ -80,7 +80,7 @@ function renderList(entry) {
   h3Title.textContent = entry.title;
   divTitleIcon.appendChild(h3Title);
 
-  // this is where I added the ICON
+  // ISSUE 3
   var icon = document.createElement('i');
   icon.setAttribute('class', 'fa-solid fa-pen-nib color-purple');
   icon.setAttribute('data-entry-id', entry.entryId);
@@ -120,6 +120,10 @@ function newEntry() {
   $getEntries.className = 'hidden';
   document.querySelector('.edit-heading').textContent = 'New Entry';
   image.setAttribute('src', 'images/placeholder-image-square.jpg');
+  var $hiddenDiv = document.querySelector('.delete-div');
+  $hiddenDiv.className = 'column-50 delete-div hidden';
+  var $saveDiv = document.querySelector('.save-div');
+  $saveDiv.className = 'column-full text-end save-div';
   data.editing = null;
 }
 var $view = document.querySelectorAll('.view');
@@ -144,8 +148,9 @@ function toggleView(event) {
       }
     }
   }
+  data.editing = null;
 }
-// below is for ISSUE 3
+// below is for ISSUE 4, TO ADD OPTION TO DELETE. ISSUE 3 COMPLETED
 var $entryLists = document.querySelector('.entry-lists');
 $entryLists.addEventListener('click', entryList);
 
@@ -154,7 +159,6 @@ function entryList(event) {
     $getForm.className = 'get-entries';
     $getEntries.className = 'hidden';
     document.querySelector('.edit-heading').textContent = 'Edit Entry';
-    // THIS IS WHERE I WILL ADD THE INFO
   }
 
   var $entryIdNum = Number(event.target.getAttribute('data-entry-id'));
@@ -168,5 +172,62 @@ function entryList(event) {
       formEntry.elements.notes.value = data.editing.notes;
     }
   }
+
+  // issue 4
+  // to show the 'DELETE ENTRY BUTTON'
+  if (data.editing) {
+    var $hiddenDiv = document.querySelector('.delete-div');
+    $hiddenDiv.className = 'column-50 delete-div';
+    var $saveDiv = document.querySelector('.save-div');
+    $saveDiv.className = 'column-50 text-end save-div';
+  }
+  // TO SHOW THE MODAL ONCE 'DELETE ENTRY CLICKED'
+  var $modalBtn = document.querySelector('.delete-btn');
+  $modalBtn.addEventListener('click', showModal);
+  var $show = document.querySelector('.hide-block');
+  function showModal(event) {
+    var dialog = document.querySelector('dialog');
+    $show.className = '';
+    dialog.showModal();
+    // TO HIDE THE MODAL ONCE CANCEL CLICKED'
+    var $cancel = document.querySelector('.canel-btn');
+    $cancel.addEventListener('click', doNothing);
+    function doNothing(event) {
+      var dialog = document.querySelector('dialog');
+      $show.className = 'hide-block';
+      dialog.close();
+    }
+  }
+  // TO DELETE ENTRY ONCE CONFIRM CLICKED
+  var $confirm = document.querySelector('.confirm-btn');
+  $confirm.addEventListener('click', deleteEntry);
+  function deleteEntry(event) {
+    var dialog = document.querySelector('dialog');
+    $show.className = 'hide-block';
+    dialog.close();
+    // Remove the entry from the data model and the entry's DOM tree from the page if the user clicks Delete.
+    // WILL NEED TO CHECK THE CURRENT ENTRY ID AND MATCH WITH
+    // remove from DATA MODEL
+    for (var k = 0; k < data.entries.length; k++) {
+      if (Number(data.editing.entryId) === data.entries[k].entryId) {
+        data.entries.splice([k], 1);
+      }
+    }
+    // remove from DOM TREE.
+    var $liEl = document.querySelectorAll('li');
+    for (var m = 0; m < $liEl.length; m++) {
+      /*     debugger; */
+      if (Number(data.editing.entryId) === Number($liEl[m].getAttribute('data-liId'))) {
+        $liEl[m].remove();
+      }
+    }
+  }
+
   formEntry.addEventListener('submit', submitEntry);
 }
+
+/* var $modalBtn = document.querySelector('delete-div'); */
+/* $modalBtn.addEventListener('click', showModal);
+function showModal(event) {
+  console.log('outside: ');
+} */
